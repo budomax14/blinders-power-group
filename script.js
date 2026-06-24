@@ -591,6 +591,23 @@ document.addEventListener('click', (e) => {
   if (card) openProductDetail(card.dataset.pid);
 });
 
+// ── Privacy Modal ──
+document.getElementById('open-privacy')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('privacy-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+document.getElementById('close-privacy')?.addEventListener('click', () => {
+  document.getElementById('privacy-modal').classList.remove('open');
+  document.body.style.overflow = '';
+});
+document.getElementById('privacy-modal')?.addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) {
+    e.currentTarget.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
 // ── Init ──
 renderProductGrid();
 renderCart();

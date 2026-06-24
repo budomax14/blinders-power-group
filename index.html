@@ -174,7 +174,7 @@
         <p class="footer-tagline" data-i18n="footer-tagline">Premium products, trusted service.</p>
         <p class="footer-copy" data-i18n="footer-copy">© 2026 BlindersPower LLC. All rights reserved.</p>
         <div class="footer-links">
-          <a href="#" data-i18n="footer-privacy">Privacy</a>
+          <a href="#" id="open-privacy" data-i18n="footer-privacy">Privacy</a>
           <a href="#" data-i18n="footer-terms">Terms</a>
           <a href="#" data-i18n="footer-support">Support</a>
         </div>
@@ -213,6 +213,116 @@
       </div>
     </div>
   </footer>
+
+  <!-- ── Privacy Policy Modal ── -->
+  <div class="legal-overlay" id="privacy-modal">
+    <div class="legal-wrap">
+      <div class="legal-head">
+        <div>
+          <p class="eyebrow">Legal</p>
+          <h2>Privacy Policy</h2>
+        </div>
+        <button class="legal-close" id="close-privacy" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="legal-body">
+        <p class="legal-effective">Effective Date: June 24, 2026</p>
+
+        <p>Welcome to Blinders Power Group LLC. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, Blinderspowergroup.com.</p>
+        <p>By using our website, you agree to the practices described in this Privacy Policy.</p>
+
+        <h3>Information We Collect</h3>
+        <h4>Personal Information</h4>
+        <p>We may collect personal information that you voluntarily provide, including:</p>
+        <ul>
+          <li>Name</li>
+          <li>Email address</li>
+          <li>Phone number</li>
+          <li>Billing and shipping address</li>
+          <li>Payment information</li>
+          <li>Information submitted through contact forms</li>
+        </ul>
+
+        <h4>Automatically Collected Information</h4>
+        <p>When you visit our website, we may automatically collect:</p>
+        <ul>
+          <li>IP address</li>
+          <li>Browser type</li>
+          <li>Device information</li>
+          <li>Pages viewed</li>
+          <li>Time spent on the website</li>
+          <li>Referring website information</li>
+        </ul>
+
+        <h3>How We Use Your Information</h3>
+        <p>We use collected information to:</p>
+        <ul>
+          <li>Process orders and payments</li>
+          <li>Provide customer support</li>
+          <li>Respond to inquiries</li>
+          <li>Improve our website and services</li>
+          <li>Send updates regarding orders or services</li>
+          <li>Detect and prevent fraud</li>
+          <li>Comply with legal obligations</li>
+        </ul>
+
+        <h3>Payment Processing</h3>
+        <p>We do not store complete credit card information on our servers. Payments are securely processed through trusted third-party payment providers such as Stripe, PayPal, Apple Pay, or other payment processors.</p>
+
+        <h3>Cookies and Tracking Technologies</h3>
+        <p>We may use cookies and similar technologies to:</p>
+        <ul>
+          <li>Improve website functionality</li>
+          <li>Remember user preferences</li>
+          <li>Analyze website traffic</li>
+          <li>Enhance user experience</li>
+        </ul>
+        <p>You may disable cookies through your browser settings, although some features of the website may not function properly.</p>
+
+        <h3>Sharing of Information</h3>
+        <p>We do not sell your personal information.</p>
+        <p>We may share information with:</p>
+        <ul>
+          <li>Payment processors</li>
+          <li>Shipping providers</li>
+          <li>Website hosting providers</li>
+          <li>Analytics providers</li>
+          <li>Legal authorities when required by law</li>
+        </ul>
+
+        <h3>Data Security</h3>
+        <p>We implement reasonable administrative, technical, and physical safeguards to protect your information. However, no method of transmission over the Internet is 100% secure.</p>
+
+        <h3>Third-Party Services</h3>
+        <p>Our website may contain links to third-party websites or services. We are not responsible for the privacy practices of those third parties.</p>
+
+        <h3>Children's Privacy</h3>
+        <p>Our website is not intended for children under the age of 13. We do not knowingly collect personal information from children.</p>
+
+        <h3>Your Rights</h3>
+        <p>Depending on your location, you may have the right to:</p>
+        <ul>
+          <li>Access your personal information</li>
+          <li>Correct inaccurate information</li>
+          <li>Request deletion of your information</li>
+          <li>Opt out of certain communications</li>
+        </ul>
+        <p>To exercise these rights, please contact us using the information below.</p>
+
+        <h3>Changes to This Privacy Policy</h3>
+        <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date.</p>
+
+        <h3>Contact Us</h3>
+        <p>If you have questions regarding this Privacy Policy, please contact us:</p>
+        <p><strong>Blinders Power Group LLC</strong><br>
+        Email: <a href="mailto:Sales@blinderspowergroup.com">Sales@blinderspowergroup.com</a><br>
+        Website: blinderspowergroup.com</p>
+
+        <p class="legal-consent">By using our website, you consent to this Privacy Policy.</p>
+      </div>
+    </div>
+  </div>
 
   <!-- ── Product Detail Overlay ── -->
   <div class="pd-overlay" id="pd-overlay">

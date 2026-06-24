@@ -635,6 +635,85 @@ footer { border-top: 1px solid var(--border); color: var(--muted); }
 .checkout-success p { color: var(--muted); }
 .checkout-success .btn { margin-top: 8px; padding: 14px 32px; }
 
+/* ── Legal / Privacy Modal ── */
+.legal-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 400;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+  padding: 24px 16px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.legal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+
+.legal-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  width: 100%; max-width: 720px;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+  overflow: hidden;
+  margin: auto;
+}
+
+.legal-head {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+  padding: 28px 32px 20px;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0;
+  background: var(--surface);
+  z-index: 1;
+}
+.legal-head .eyebrow { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); margin-bottom: 4px; }
+.legal-head h2 { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; }
+
+.legal-close {
+  flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--border); background: none;
+  color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, color 0.2s; margin-top: 2px;
+}
+.legal-close svg { width: 16px; height: 16px; }
+.legal-close:hover { background: rgba(255,255,255,0.08); color: var(--text); }
+
+.legal-body {
+  padding: 28px 32px 36px;
+  display: flex; flex-direction: column; gap: 14px;
+  font-size: 0.93rem; line-height: 1.75; color: var(--muted);
+}
+.legal-effective {
+  font-size: 0.8rem; font-weight: 700; color: var(--gold);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.legal-body h3 {
+  font-size: 1.05rem; font-weight: 800; color: var(--text);
+  margin-top: 10px; padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.legal-body h4 { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-top: 4px; }
+.legal-body p { color: var(--muted); }
+.legal-body strong { color: var(--text); }
+.legal-body a { color: var(--gold); text-underline-offset: 3px; }
+.legal-body a:hover { opacity: 0.8; }
+.legal-body ul { padding-left: 20px; display: flex; flex-direction: column; gap: 5px; }
+.legal-body ul li::marker { color: var(--gold); }
+.legal-consent {
+  margin-top: 10px; padding-top: 18px;
+  border-top: 1px solid var(--border);
+  font-size: 0.82rem; font-style: italic;
+}
+
+body.theme-light .legal-wrap { background: #fff; border-color: rgba(0,0,0,0.1); }
+body.theme-light .legal-head { background: #fff; border-bottom-color: rgba(0,0,0,0.1); }
+body.theme-light .legal-head h2 { color: #111827; }
+body.theme-light .legal-close { border-color: rgba(0,0,0,0.12); color: #6b7280; }
+body.theme-light .legal-close:hover { background: rgba(0,0,0,0.06); color: #111827; }
+body.theme-light .legal-body h3 { color: #111827; border-top-color: rgba(0,0,0,0.08); }
+body.theme-light .legal-body h4 { color: #111827; }
+body.theme-light .legal-body strong { color: #111827; }
+body.theme-light .legal-consent { border-top-color: rgba(0,0,0,0.08); }
+
 /* ── Photo count badge on product card ── */
 .product-card { cursor: pointer; }
 .pd-img-count {
