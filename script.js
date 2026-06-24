@@ -591,7 +591,7 @@ document.addEventListener('click', (e) => {
   if (card) openProductDetail(card.dataset.pid);
 });
 
-// ── Privacy Modal ──
+// ── Legal Modals (Privacy & Terms) ──
 document.getElementById('open-privacy')?.addEventListener('click', (e) => {
   e.preventDefault();
   document.getElementById('privacy-modal').classList.add('open');
@@ -602,6 +602,22 @@ document.getElementById('close-privacy')?.addEventListener('click', () => {
   document.body.style.overflow = '';
 });
 document.getElementById('privacy-modal')?.addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) {
+    e.currentTarget.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+document.getElementById('open-terms')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('terms-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+document.getElementById('close-terms')?.addEventListener('click', () => {
+  document.getElementById('terms-modal').classList.remove('open');
+  document.body.style.overflow = '';
+});
+document.getElementById('terms-modal')?.addEventListener('click', (e) => {
   if (e.target === e.currentTarget) {
     e.currentTarget.classList.remove('open');
     document.body.style.overflow = '';
