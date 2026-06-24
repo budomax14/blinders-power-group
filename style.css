@@ -714,6 +714,45 @@ body.theme-light .legal-body h4 { color: #111827; }
 body.theme-light .legal-body strong { color: #111827; }
 body.theme-light .legal-consent { border-top-color: rgba(0,0,0,0.08); }
 
+/* ── Support modal extras ── */
+.support-hours {
+  display: flex; flex-direction: column; gap: 0;
+  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+}
+.support-hours-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 18px; font-size: 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+.support-hours-row:last-child { border-bottom: none; }
+.support-hours-row span { color: var(--muted); }
+.support-hours-row strong { color: var(--text); }
+
+.support-contacts { display: flex; flex-direction: column; gap: 10px; }
+.support-contact-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 18px; border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  color: inherit; text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+a.support-contact-item:hover { border-color: var(--gold); background: rgba(247,201,72,0.05); }
+.support-contact-icon {
+  width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+  background: rgba(247,201,72,0.1); color: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+}
+.support-contact-icon svg { width: 18px; height: 18px; }
+.support-contact-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 2px; }
+.support-contact-value { font-size: 0.92rem; font-weight: 600; color: var(--text); }
+
+body.theme-light .support-hours { border-color: rgba(0,0,0,0.1); }
+body.theme-light .support-hours-row { border-color: rgba(0,0,0,0.08); }
+body.theme-light .support-hours-row strong { color: #111827; }
+body.theme-light .support-contact-item { border-color: rgba(0,0,0,0.1); background: rgba(0,0,0,0.02); }
+body.theme-light .support-contact-value { color: #111827; }
+
 /* ── Photo count badge on product card ── */
 .product-card { cursor: pointer; }
 .pd-img-count {

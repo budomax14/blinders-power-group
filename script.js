@@ -624,6 +624,22 @@ document.getElementById('terms-modal')?.addEventListener('click', (e) => {
   }
 });
 
+document.getElementById('open-support')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('support-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+document.getElementById('close-support')?.addEventListener('click', () => {
+  document.getElementById('support-modal').classList.remove('open');
+  document.body.style.overflow = '';
+});
+document.getElementById('support-modal')?.addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) {
+    e.currentTarget.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
 // ── Init ──
 renderProductGrid();
 renderCart();
