@@ -1,7 +1,7 @@
 // ── Translations ──
 const TRANSLATIONS = {
   en: {
-    'nav-shop': 'Shop', 'nav-deals': 'Deals', 'nav-why': 'Why Us', 'nav-contact': 'Contact',
+    'nav-shop': 'Shop', 'nav-deals': 'Deals', 'nav-contact': 'Contact',
     'nav-cta': 'Shop Now',
     'hero-h1': 'Shop smarter with us today.',
     'hero-text': 'Shopping with us today and buy our best quality products. Sign up to have the best deal on our website.',
@@ -11,9 +11,6 @@ const TRANSLATIONS = {
     'brand-shipping': 'Fast shipping', 'brand-payments': 'Secure payments', 'brand-quality': 'Quality products', 'brand-returns': 'Easy returns',
     'shop-eyebrow': 'Featured collection', 'shop-h2': 'Products your customers will notice.', 'shop-p': 'Replace these sample products with your real inventory anytime.',
     'deal-eyebrow': 'Limited offer', 'deal-h2': 'Make your first order feel special.', 'deal-p': 'Use this section for discounts, bundles, or seasonal promotions that push customers to buy today.', 'deal-cta': 'Shop the Deal',
-    'feat1-h3': 'Fast Loading', 'feat1-p': 'Lightweight design with optimized image loading and clean code.',
-    'feat2-h3': 'Built for Trust', 'feat2-p': 'Professional layout that helps customers feel safe buying from you.',
-    'feat3-h3': 'Mobile First', 'feat3-p': 'Looks sharp on iPhone, Android, tablets, and desktop screens.',
     'news-eyebrow': 'Stay connected', 'news-h2': 'Get updates, deals, and new arrivals.', 'news-btn': 'Subscribe',
     'footer-copy': '© 2026 BlindersPower LLC. All rights reserved.', 'footer-privacy': 'Privacy', 'footer-terms': 'Terms', 'footer-support': 'Support',
     'footer-tagline': 'Premium products, trusted service.',
@@ -28,7 +25,7 @@ const TRANSLATIONS = {
     'news-email': 'Enter your email',
   },
   fr: {
-    'nav-shop': 'Boutique', 'nav-deals': 'Offres', 'nav-why': 'Pourquoi nous', 'nav-contact': 'Contact',
+    'nav-shop': 'Boutique', 'nav-deals': 'Offres', 'nav-contact': 'Contact',
     'nav-cta': 'Acheter',
     'hero-h1': 'Achetez mieux avec nous.',
     'hero-text': "Faites vos achats chez nous et découvrez nos produits de qualité supérieure. Inscrivez-vous pour profiter des meilleures offres.",
@@ -38,9 +35,6 @@ const TRANSLATIONS = {
     'brand-shipping': 'Livraison rapide', 'brand-payments': 'Paiements sécurisés', 'brand-quality': 'Produits de qualité', 'brand-returns': 'Retours faciles',
     'shop-eyebrow': 'Collection vedette', 'shop-h2': 'Des produits que vos clients remarqueront.', 'shop-p': 'Remplacez ces exemples par votre vrai inventaire à tout moment.',
     'deal-eyebrow': 'Offre limitée', 'deal-h2': 'Rendez votre première commande inoubliable.', 'deal-p': 'Utilisez cette section pour des remises, des lots ou des promotions saisonnières.', 'deal-cta': "Profiter de l'offre",
-    'feat1-h3': 'Chargement rapide', 'feat1-p': 'Design léger avec chargement optimisé des images et un code propre.',
-    'feat2-h3': 'Confiance garantie', 'feat2-p': 'Une mise en page professionnelle qui rassure vos clients.',
-    'feat3-h3': 'Mobile avant tout', 'feat3-p': 'Parfait sur iPhone, Android, tablettes et ordinateurs.',
     'news-eyebrow': 'Restez connecté', 'news-h2': 'Recevez offres, nouveautés et mises à jour.', 'news-btn': "S'abonner",
     'footer-copy': '© 2026 BlindersPower LLC. Tous droits réservés.', 'footer-privacy': 'Confidentialité', 'footer-terms': 'Conditions', 'footer-support': 'Assistance',
     'footer-tagline': 'Produits premium, service de confiance.',

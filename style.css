@@ -206,7 +206,7 @@ button, input { font: inherit; }
 .eyebrow { color: var(--gold); font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.78rem; margin-bottom: 14px; }
 h1 { font-size: clamp(2.5rem,6vw,5.4rem); line-height: 0.95; letter-spacing: -0.07em; margin-bottom: 24px; }
 h2 { font-size: clamp(2rem,4vw,3.4rem); line-height: 1; letter-spacing: -0.06em; margin-bottom: 16px; }
-.hero-text, .section-heading p, .deal-card p, .feature-card p, .product-info p { color: var(--muted); }
+.hero-text, .section-heading p, .deal-card p, .product-info p { color: var(--muted); }
 .hero-text { font-size: 1.12rem; max-width: 620px; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin: 32px 0; }
 
@@ -389,28 +389,6 @@ h2 { font-size: clamp(2rem,4vw,3.4rem); line-height: 1; letter-spacing: -0.06em;
 .deal-card:hover { transform: scale(1.015); box-shadow: 0 40px 100px rgba(0,0,0,0.55); }
 .deal-card p { max-width: 640px; }
 
-/* ── Features ── */
-.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px; }
-.feature-card {
-  padding: 30px;
-  border-radius: 28px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), border-color 0.3s, box-shadow 0.3s;
-}
-.feature-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  border-color: rgba(247,201,72,0.4);
-  box-shadow: 0 22px 60px rgba(0,0,0,0.4);
-}
-.feature-icon {
-  display: block;
-  margin-bottom: 20px;
-  color: var(--gold);
-  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
-}
-.feature-icon svg { width: 42px; height: 42px; }
-.feature-card:hover .feature-icon { transform: scale(1.25) rotate(8deg); }
 
 /* ── Newsletter ── */
 .newsletter {
@@ -801,7 +779,6 @@ body.theme-light .pd-desc { color: #6b7280; }
   .add-cart-btn { font-size: 0.75rem; padding: 8px 10px; }
   .quick-add-btn { font-size: 0.72rem; padding: 8px 10px; }
   .tag { font-size: 0.65rem; padding: 4px 8px; }
-  .features-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .newsletter { padding: 24px; }
   .section { padding: 48px 0; }
@@ -898,7 +875,6 @@ body.theme-light h3 { color: #111827; }
 body.theme-light .hero-text,
 body.theme-light .section-heading p,
 body.theme-light .deal-card p,
-body.theme-light .feature-card p,
 body.theme-light .product-info p { color: #6b7280; }
 
 body.theme-light .stats div {
@@ -976,11 +952,6 @@ body.theme-light .deal-card {
   box-shadow: 0 25px 70px rgba(0,0,0,0.08);
 }
 
-body.theme-light .feature-card {
-  background: #ffffff;
-  border-color: rgba(0,0,0,0.1);
-}
-body.theme-light .feature-card:hover { box-shadow: 0 22px 60px rgba(0,0,0,0.1); }
 
 body.theme-light .newsletter {
   background: rgba(0,0,0,0.03);
