@@ -22,20 +22,20 @@
         <a href="#why-us"  data-i18n="nav-why">Why Us</a>
         <a href="#contact" data-i18n="nav-contact">Contact</a>
         <div class="nav-theme-divider"></div>
-        <div class="nav-theme-row">
-          <button class="nav-theme-btn" id="theme-dark">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <div class="nav-pill-switch">
+          <button class="nav-pill-opt" id="theme-dark">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             Dark
           </button>
-          <button class="nav-theme-btn" id="theme-light">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <button class="nav-pill-opt" id="theme-light">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
             White
           </button>
         </div>
         <div class="nav-theme-divider"></div>
-        <div class="nav-lang-row">
-          <button class="nav-lang-btn" id="lang-en">🇬🇧 EN</button>
-          <button class="nav-lang-btn" id="lang-fr">🇫🇷 FR</button>
+        <div class="nav-pill-switch">
+          <button class="nav-pill-opt" id="lang-en">🇬🇧 EN</button>
+          <button class="nav-pill-opt" id="lang-fr">🇫🇷 FR</button>
         </div>
       </div>
       <a href="#" class="logo"><span>Blinders </span>Power Group</a>
@@ -106,11 +106,6 @@
           <div class="hero-actions">
             <a class="btn secondary" href="#deals" data-i18n="hero-cta">View Deals</a>
           </div>
-          <div class="stats">
-            <div><strong data-target="4.9" data-suffix="★" data-decimals="1">4.9★</strong><span data-i18n="stat-rating">Customer rating</span></div>
-            <div><strong data-target="24" data-suffix="/7">24/7</strong><span data-i18n="stat-ordering">Online ordering</span></div>
-            <div><strong data-target="100" data-suffix="%">100%</strong><span data-i18n="stat-checkout">Secure checkout</span></div>
-          </div>
         </div>
         <div class="hero-card animate-right">
           <img src="https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=1100&q=80" alt="Premium shopping bags and products" loading="eager">
@@ -134,14 +129,19 @@
     <section class="section container" id="shop">
       <div class="section-heading animate-up">
         <p class="eyebrow" data-i18n="shop-eyebrow">Featured collection</p>
-        <h2 data-i18n="shop-h2">Products your customers will notice.</h2>
-        <p data-i18n="shop-p">Replace these sample products with your real inventory anytime.</p>
+        
+ 
       </div>
 
       <div class="product-grid" id="product-grid">
         <!-- Products rendered dynamically by script.js -->
       </div>
     </section>
+    <div class="stats">
+            <div><strong data-target="4.9" data-suffix="★" data-decimals="1">4.9★</strong><span data-i18n="stat-rating">Customer rating</span></div>
+            <div><strong data-target="24" data-suffix="/7">24/7</strong><span data-i18n="stat-ordering">Online ordering</span></div>
+            <div><strong data-target="100" data-suffix="%">100%</strong><span data-i18n="stat-checkout">Secure checkout</span></div>
+          </div>
 
     <section class="deal-section" id="deals">
       <div class="container deal-card animate-up">
@@ -232,6 +232,35 @@
       </div>
     </div>
   </footer>
+
+  <!-- ── Product Detail Overlay ── -->
+  <div class="pd-overlay" id="pd-overlay">
+    <div class="pd-modal">
+      <div class="pd-top-bar">
+        <button class="pd-back" id="pd-back">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to Products
+        </button>
+      </div>
+      <div class="pd-content">
+        <div class="pd-gallery">
+          <div class="pd-main-wrap">
+            <img id="pd-main-img" src="" alt="">
+            <button class="pd-nav pd-prev" id="pd-prev" aria-label="Previous image">&#8249;</button>
+            <button class="pd-nav pd-next" id="pd-next" aria-label="Next image">&#8250;</button>
+          </div>
+          <div class="pd-thumbs" id="pd-thumbs"></div>
+        </div>
+        <div class="pd-info">
+          <span class="tag" id="pd-tag" style="display:none"></span>
+          <h2 id="pd-name"></h2>
+          <p class="pd-desc" id="pd-desc"></p>
+          <strong class="pd-price" id="pd-price"></strong>
+          <button class="btn primary pd-add-btn" id="pd-add-cart">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js"></script>

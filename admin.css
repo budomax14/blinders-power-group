@@ -1044,6 +1044,8 @@ tbody tr:hover {
   .table-wrap { overflow-x: auto; }
   table { min-width: 760px; }
   .page-header { margin: -22px -16px 28px; padding: 13px 18px; }
+  /* Hide the header Add Product button — FAB replaces it on mobile */
+  #tab-products .page-header .btn-primary { display: none; }
 }
 @media (max-width: 560px) {
   .login-card { width: min(92vw, 380px); padding: 34px 24px; }
@@ -1240,3 +1242,54 @@ tbody tr:hover .product-thumb { transform: scale(1.08); box-shadow: 0 12px 30px 
   transition: opacity 0.2s;
 }
 .img-url-toggle:hover { opacity: 0.75; }
+
+/* ── Multi-image slots ── */
+.field-hint { color: var(--muted); font-size: 0.75rem; margin-bottom: 10px; display: block; }
+.img-slots { display: flex; flex-direction: column; gap: 10px; }
+.img-slot {
+  display: grid; grid-template-columns: 80px 1fr;
+  gap: 12px; align-items: center;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border); border-radius: 10px; padding: 10px;
+}
+.img-slot-preview {
+  width: 80px; height: 80px; border-radius: 8px;
+  border: 1.5px dashed rgba(255,255,255,0.18);
+  cursor: pointer; overflow: hidden; position: relative;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 4px; color: var(--muted); font-size: 0.62rem; text-align: center; padding: 4px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.img-slot-preview:hover { border-color: var(--gold); color: var(--gold); }
+.img-slot-preview.has-img { border-style: solid; border-color: rgba(255,255,255,0.1); }
+.img-slot-preview img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.img-slot-preview svg { width: 20px; height: 20px; flex-shrink: 0; }
+.slot-primary-badge {
+  position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+  background: var(--gold); color: #111; font-size: 0.5rem;
+  font-weight: 800; text-transform: uppercase; padding: 2px 5px; border-radius: 3px;
+  white-space: nowrap; z-index: 2;
+}
+.img-slot-right { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.slot-url-input {
+  flex: 1; min-width: 140px; font-size: 0.8rem; padding: 7px 10px;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px; color: var(--text); outline: none;
+}
+.slot-url-input:focus { border-color: var(--gold); }
+.slot-url-input::placeholder { color: var(--muted); }
+
+/* ── Mobile FAB (Add Product) ── */
+.fab {
+  display: none;
+  position: fixed; bottom: 24px; right: 24px; z-index: 100;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: #111827; border: none; cursor: pointer;
+  box-shadow: 0 8px 24px rgba(247,201,72,0.4);
+  align-items: center; justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.fab svg { width: 22px; height: 22px; }
+.fab:hover { transform: scale(1.1); box-shadow: 0 12px 28px rgba(247,201,72,0.55); }
+.fab.visible { display: flex; }

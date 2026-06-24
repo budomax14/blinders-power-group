@@ -18,7 +18,8 @@ function mapProduct(row) {
     price:       parseFloat(row.price),
     tag:         row.tag || '',
     description: row.description || '',
-    img:         row.img_url || ''
+    img:         row.img_url || '',
+    images:      Array.isArray(row.images) ? row.images : (row.img_url ? [row.img_url] : [])
   };
 }
 
@@ -144,6 +145,8 @@ function switchTab(tab) {
   document.querySelectorAll('.sidebar-btn[data-tab]').forEach(b => b.classList.remove('active'));
   document.getElementById(`tab-${tab}`)?.classList.add('active');
   document.querySelector(`.sidebar-btn[data-tab="${tab}"]`)?.classList.add('active');
+  const fab = document.getElementById('fab-add-product');
+  if (fab) fab.classList.toggle('visible', tab === 'products');
   if (tab === 'dashboard')   renderDashboard();
   if (tab === 'products')    renderProductsTable();
   if (tab === 'orders')      renderOrdersTable();
@@ -154,6 +157,10 @@ function switchTab(tab) {
 
 document.querySelectorAll('.sidebar-btn[data-tab]').forEach(btn => {
   btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+});
+
+document.getElementById('fab-add-product')?.addEventListener('click', () => {
+  document.getElementById('add-product-btn')?.click();
 });
 
 // ── Chart instances ──
@@ -387,7 +394,7 @@ document.getElementById('add-product-btn').addEventListener('click', () => {
   document.getElementById('product-modal-title').textContent = 'Add Product';
   document.getElementById('edit-pid').value = '';
   document.getElementById('product-form').reset();
-  resetImgField();
+  resetImgSlots();
   openModal('product-modal');
 });
 
@@ -401,75 +408,103 @@ async function openEditProduct(id) {
   document.getElementById('p-price').value   = p.price;
   document.getElementById('p-tag').value     = p.tag || '';
   document.getElementById('p-desc').value    = p.description || '';
-  resetImgField();
-  setImgPreview(p.img || '');
+  setImgSlotsFromProduct(p);
   openModal('product-modal');
 }
 
-// ── Image upload ──
-let _pendingImgFile = null;
+// ── Multi-image slots ──
+let _imageSlots = []; // [{ file: File|null, url: string, preview: string }]
 
-const imgUploadArea = document.getElementById('img-upload-area');
-const imgFileInput  = document.getElementById('p-img-file');
-const imgPreview    = document.getElementById('img-preview');
-const imgUrlToggle  = document.getElementById('img-url-toggle');
-const imgUrlInput   = document.getElementById('p-img');
-
-imgUploadArea.addEventListener('click', (e) => {
-  if (e.target === imgUrlToggle) return;
-  imgFileInput.click();
-});
-
-imgFileInput.addEventListener('change', () => {
-  const file = imgFileInput.files[0];
-  if (!file) return;
-  _pendingImgFile = file;
-  const reader = new FileReader();
-  reader.onload = (ev) => {
-    imgPreview.src = ev.target.result;
-    imgUploadArea.classList.add('has-image');
-    imgUrlInput.style.display = 'none';
-    imgUrlToggle.textContent = 'use an image URL instead';
-  };
-  reader.readAsDataURL(file);
-});
-
-imgUploadArea.addEventListener('dragover', (e) => { e.preventDefault(); imgUploadArea.classList.add('drag-over'); });
-imgUploadArea.addEventListener('dragleave', () => imgUploadArea.classList.remove('drag-over'));
-imgUploadArea.addEventListener('drop', (e) => {
-  e.preventDefault();
-  imgUploadArea.classList.remove('drag-over');
-  const file = e.dataTransfer.files[0];
-  if (!file || !file.type.startsWith('image/')) return;
-  imgFileInput.files = e.dataTransfer.files;
-  imgFileInput.dispatchEvent(new Event('change'));
-});
-
-imgUrlToggle.addEventListener('click', (e) => {
-  e.stopPropagation();
-  const showing = imgUrlInput.style.display !== 'none';
-  imgUrlInput.style.display = showing ? 'none' : '';
-  imgUrlToggle.textContent = showing ? 'use an image URL instead' : 'hide URL field';
-});
-
-function resetImgField() {
-  _pendingImgFile = null;
-  imgPreview.src = '';
-  imgUploadArea.classList.remove('has-image', 'drag-over');
-  imgFileInput.value = '';
-  imgUrlInput.value = '';
-  imgUrlInput.style.display = 'none';
-  imgUrlToggle.textContent = 'use an image URL instead';
+function createImgSlot(url = '', file = null) {
+  return { file, url, preview: url };
 }
 
-function setImgPreview(src) {
-  if (!src) { resetImgField(); return; }
-  imgPreview.src = src;
-  imgUploadArea.classList.add('has-image');
-  imgUrlInput.value = src;
-  imgUrlInput.style.display = '';
-  imgUrlToggle.textContent = 'hide URL field';
+function renderImageSlots() {
+  const container = document.getElementById('img-slots');
+  if (!container) return;
+  if (_imageSlots.length === 0) _imageSlots.push(createImgSlot());
+
+  container.innerHTML = _imageSlots.map((slot, i) => `
+    <div class="img-slot">
+      <div class="img-slot-preview${slot.preview ? ' has-img' : ''}" data-idx="${i}">
+        ${slot.preview ? `<img src="${slot.preview}" alt="">` : `
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span>Click</span>
+        `}
+        ${i === 0 ? '<span class="slot-primary-badge">Primary</span>' : ''}
+      </div>
+      <div class="img-slot-right">
+        <input type="file" accept="image/*" class="slot-file-input" data-idx="${i}" style="display:none">
+        <button type="button" class="btn btn-secondary btn-sm slot-upload-btn" data-idx="${i}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;margin-right:4px"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+          Upload file
+        </button>
+        <input type="url" class="slot-url-input" data-idx="${i}" placeholder="or paste image URL" value="${slot.file ? '' : (slot.url || '')}">
+        ${i > 0 ? `<button type="button" class="btn btn-danger btn-sm btn-icon slot-remove" data-idx="${i}" title="Remove image">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>` : ''}
+      </div>
+    </div>`).join('');
+
+  container.querySelectorAll('.img-slot-preview[data-idx]').forEach(preview => {
+    preview.addEventListener('click', () => {
+      container.querySelector(`.slot-file-input[data-idx="${preview.dataset.idx}"]`)?.click();
+    });
+  });
+  container.querySelectorAll('.slot-upload-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      container.querySelector(`.slot-file-input[data-idx="${btn.dataset.idx}"]`)?.click();
+    });
+  });
+  container.querySelectorAll('.slot-file-input').forEach(input => {
+    input.addEventListener('change', () => {
+      const i = parseInt(input.dataset.idx);
+      const file = input.files[0];
+      if (!file) return;
+      _imageSlots[i].file = file;
+      _imageSlots[i].url = '';
+      const reader = new FileReader();
+      reader.onload = ev => { _imageSlots[i].preview = ev.target.result; renderImageSlots(); };
+      reader.readAsDataURL(file);
+    });
+  });
+  container.querySelectorAll('.slot-url-input').forEach(input => {
+    input.addEventListener('blur', () => {
+      const i = parseInt(input.dataset.idx);
+      const val = input.value.trim();
+      if (val !== _imageSlots[i].url) {
+        _imageSlots[i] = createImgSlot(val);
+        renderImageSlots();
+      }
+    });
+  });
+  container.querySelectorAll('.slot-remove').forEach(btn => {
+    btn.addEventListener('click', () => {
+      _imageSlots.splice(parseInt(btn.dataset.idx), 1);
+      renderImageSlots();
+    });
+  });
 }
+
+function resetImgSlots() {
+  _imageSlots = [createImgSlot()];
+  renderImageSlots();
+}
+
+function setImgSlotsFromProduct(p) {
+  const imgs = p.images && p.images.length > 0 ? p.images : (p.img ? [p.img] : []);
+  _imageSlots = imgs.map(url => createImgSlot(url));
+  if (_imageSlots.length === 0) _imageSlots.push(createImgSlot());
+  renderImageSlots();
+}
+
+document.getElementById('add-img-slot')?.addEventListener('click', () => {
+  _imageSlots.push(createImgSlot());
+  renderImageSlots();
+});
+
+// Initialize empty slot on load
+resetImgSlots();
 
 // Save product
 document.getElementById('product-form').addEventListener('submit', async (e) => {
@@ -478,22 +513,25 @@ document.getElementById('product-form').addEventListener('submit', async (e) => 
   btn.disabled = true;
   btn.textContent = 'Saving…';
 
-  let imgUrl = imgUrlInput.value.trim();
-
-  // Upload file to Supabase Storage if one was selected
-  if (_pendingImgFile) {
-    const ext  = _pendingImgFile.name.split('.').pop();
-    const path = `products/${Date.now()}.${ext}`;
-    const { error: uploadErr } = await db.storage
-      .from('product-images')
-      .upload(path, _pendingImgFile, { upsert: true });
-    if (uploadErr) {
-      showToast('Image upload failed: ' + uploadErr.message, 'error');
-      btn.disabled = false; btn.textContent = 'Save Product';
-      return;
+  // Upload all pending files and collect URLs
+  const allUrls = [];
+  for (const slot of _imageSlots) {
+    if (slot.file) {
+      const ext  = slot.file.name.split('.').pop();
+      const path = `products/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const { error: uploadErr } = await db.storage
+        .from('product-images')
+        .upload(path, slot.file, { upsert: true });
+      if (uploadErr) {
+        showToast('Image upload failed: ' + uploadErr.message, 'error');
+        btn.disabled = false; btn.textContent = 'Save Product';
+        return;
+      }
+      const { data: { publicUrl } } = db.storage.from('product-images').getPublicUrl(path);
+      allUrls.push(publicUrl);
+    } else if (slot.url) {
+      allUrls.push(slot.url);
     }
-    const { data: { publicUrl } } = db.storage.from('product-images').getPublicUrl(path);
-    imgUrl = publicUrl;
   }
 
   const editId  = document.getElementById('edit-pid').value;
@@ -501,7 +539,8 @@ document.getElementById('product-form').addEventListener('submit', async (e) => 
     name:        document.getElementById('p-name').value.trim(),
     price:       parseFloat(document.getElementById('p-price').value),
     tag:         document.getElementById('p-tag').value,
-    img_url:     imgUrl,
+    img_url:     allUrls[0] || '',
+    images:      allUrls,
     description: document.getElementById('p-desc').value.trim()
   };
 

@@ -173,9 +173,9 @@ document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe
 
 // ── Products catalogue (loaded from Supabase, seeded with defaults) ──
 const DEFAULT_PRODUCTS = [
-  { id: 'urban-sneakers', name: 'Urban Sneakers', price: 89.99, tag: 'Trending', description: 'Comfortable everyday style with a premium streetwear look.', img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80' },
-  { id: 'smart-watch', name: 'Classic Smart Watch', price: 129.00, tag: 'Best Seller', description: 'A clean, modern accessory for work, gym, and daily life.', img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80' },
-  { id: 'headphones', name: 'Wireless Headphones', price: 74.50, tag: 'New Arrival', description: 'Deep sound, clean design, and all-day comfort.', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80' }
+  { id: 'urban-sneakers', name: 'Urban Sneakers', price: 89.99, tag: 'Trending', description: 'Comfortable everyday style with a premium streetwear look.', img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80', images: ['https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80'] },
+  { id: 'smart-watch', name: 'Classic Smart Watch', price: 129.00, tag: 'Best Seller', description: 'A clean, modern accessory for work, gym, and daily life.', img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80', images: ['https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80'] },
+  { id: 'headphones', name: 'Wireless Headphones', price: 74.50, tag: 'New Arrival', description: 'Deep sound, clean design, and all-day comfort.', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80', images: ['https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80'] }
 ];
 
 let PRODUCTS = {};
@@ -189,7 +189,8 @@ async function getStoreProducts() {
     price:       parseFloat(p.price),
     tag:         p.tag || '',
     description: p.description || '',
-    img:         p.img_url || ''
+    img:         p.img_url || '',
+    images:      Array.isArray(p.images) ? p.images : (p.img_url ? [p.img_url] : [])
   }));
 }
 
@@ -213,6 +214,7 @@ async function renderProductGrid() {
       <div class="product-img-wrap">
         <img src="${p.img || ''}" alt="${p.name}" loading="lazy">
         ${p.tag ? `<span class="tag">${p.tag}</span>` : ''}
+        ${(p.images && p.images.length > 1) ? `<span class="pd-img-count">${p.images.length} photos</span>` : ''}
         <button class="quick-add-btn">Quick Add +</button>
       </div>
       <div class="product-info">
@@ -510,6 +512,89 @@ document.getElementById('newsletter-form')?.addEventListener('submit', async (e)
     btn.textContent = '✓ Subscribed!';
   }
   setTimeout(() => { btn.textContent = orig; }, 3000);
+});
+
+// ── Product Detail Overlay ──
+let _pdImages  = [];
+let _pdIndex   = 0;
+let _pdPid     = '';
+
+function openProductDetail(pid) {
+  const p = PRODUCTS[pid];
+  if (!p) return;
+  _pdPid    = pid;
+  _pdImages = (p.images && p.images.length > 0) ? p.images : (p.img ? [p.img] : []);
+  _pdIndex  = 0;
+
+  document.getElementById('pd-name').textContent  = p.name;
+  document.getElementById('pd-desc').textContent  = p.description || '';
+  document.getElementById('pd-price').textContent = '$' + parseFloat(p.price).toFixed(2);
+
+  const tagEl = document.getElementById('pd-tag');
+  if (p.tag) { tagEl.textContent = p.tag; tagEl.style.display = ''; }
+  else        { tagEl.style.display = 'none'; }
+
+  pdSetImage(0);
+  pdRenderThumbs();
+
+  document.getElementById('pd-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function pdSetImage(i) {
+  _pdIndex = i;
+  const img = document.getElementById('pd-main-img');
+  img.style.opacity = '0.4';
+  setTimeout(() => {
+    img.src = _pdImages[i] || '';
+    img.style.opacity = '1';
+  }, 80);
+  document.querySelectorAll('.pd-thumb').forEach((t, ti) => t.classList.toggle('active', ti === i));
+  document.getElementById('pd-prev').classList.toggle('hidden', _pdImages.length <= 1);
+  document.getElementById('pd-next').classList.toggle('hidden', _pdImages.length <= 1);
+}
+
+function pdRenderThumbs() {
+  const container = document.getElementById('pd-thumbs');
+  if (_pdImages.length <= 1) { container.innerHTML = ''; return; }
+  container.innerHTML = _pdImages.map((url, i) => `
+    <button class="pd-thumb${i === 0 ? ' active' : ''}" data-ti="${i}">
+      <img src="${url}" alt="" loading="lazy">
+    </button>`).join('');
+}
+
+function closePd() {
+  document.getElementById('pd-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('pd-back')?.addEventListener('click', closePd);
+document.getElementById('pd-overlay')?.addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closePd();
+});
+document.getElementById('pd-prev')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  pdSetImage((_pdIndex - 1 + _pdImages.length) % _pdImages.length);
+});
+document.getElementById('pd-next')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  pdSetImage((_pdIndex + 1) % _pdImages.length);
+});
+document.getElementById('pd-thumbs')?.addEventListener('click', (e) => {
+  const btn = e.target.closest('.pd-thumb');
+  if (btn) pdSetImage(parseInt(btn.dataset.ti));
+});
+document.getElementById('pd-add-cart')?.addEventListener('click', () => {
+  addToCart(_pdPid);
+  closePd();
+  openCart();
+});
+
+// Open detail when clicking card body (but not the "Add to Cart" buttons)
+document.addEventListener('click', (e) => {
+  if (e.target.closest('.add-cart-btn, .quick-add-btn')) return;
+  const card = e.target.closest('.product-card[data-pid]');
+  if (card) openProductDetail(card.dataset.pid);
 });
 
 // ── Init ──
