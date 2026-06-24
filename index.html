@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blinders Power Group | Premium Online Store</title>
+  <meta name="description" content="Shop premium products at Blinders Power Group. Fast shipping, secure payments, and quality you can trust." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <button class="menu-btn" aria-label="Open menu">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="nav-links">
+        <a href="#shop"    data-i18n="nav-shop">Shop</a>
+        <a href="#deals"   data-i18n="nav-deals">Deals</a>
+        <a href="#why-us"  data-i18n="nav-why">Why Us</a>
+        <a href="#contact" data-i18n="nav-contact">Contact</a>
+        <div class="nav-theme-divider"></div>
+        <div class="nav-theme-row">
+          <button class="nav-theme-btn" id="theme-dark">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            Dark
+          </button>
+          <button class="nav-theme-btn" id="theme-light">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            White
+          </button>
+        </div>
+        <div class="nav-theme-divider"></div>
+        <div class="nav-lang-row">
+          <button class="nav-lang-btn" id="lang-en">🇬🇧 EN</button>
+          <button class="nav-lang-btn" id="lang-fr">🇫🇷 FR</button>
+        </div>
+      </div>
+      <a href="#" class="logo"><span>Blinders </span>Power Group</a>
+      <a class="nav-cta" href="#shop" data-i18n="nav-cta">Shop Now</a>
+      <button class="cart-btn" id="cart-open" aria-label="Open cart">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Cart Drawer -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <aside class="cart-drawer" id="cart-drawer">
+    <div class="cart-head">
+      <h2 data-i18n="cart-title">Your Cart</h2>
+      <button class="cart-close" id="cart-close" aria-label="Close cart">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="cart-body" id="cart-body"></div>
+    <div class="cart-foot" id="cart-foot" style="display:none">
+      <div class="cart-subtotal-row">
+        <span data-i18n="cart-subtotal">Subtotal</span>
+        <strong id="cart-subtotal">$0.00</strong>
+      </div>
+      <p class="cart-shipping-note" data-i18n="cart-shipping-note">Shipping &amp; taxes calculated at checkout</p>
+      <button class="btn primary cart-checkout-btn" id="cart-checkout" data-i18n="cart-checkout-btn">Proceed to Checkout</button>
+    </div>
+  </aside>
+
+  <!-- Checkout Modal -->
+  <div class="checkout-modal" id="checkout-modal" role="dialog" aria-modal="true">
+    <div class="checkout-wrap">
+      <button class="checkout-close" id="checkout-close" aria-label="Close checkout">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <h2 data-i18n="checkout-title">Checkout</h2>
+      <div class="checkout-summary" id="checkout-summary"></div>
+      <form class="checkout-form" id="checkout-form" novalidate>
+        <h3 data-i18n="checkout-contact">Contact &amp; Shipping</h3>
+        <div class="form-row">
+          <input type="text"  name="name"    data-i18n-placeholder="checkout-name"    placeholder="Full name"       required>
+          <input type="email" name="email"   data-i18n-placeholder="checkout-email"   placeholder="Email address"   required>
+        </div>
+        <input type="text" name="address" data-i18n-placeholder="checkout-address" placeholder="Shipping address" required>
+        <div class="form-row">
+          <input type="text" name="city" data-i18n-placeholder="checkout-city" placeholder="City"              required>
+          <input type="text" name="zip"  data-i18n-placeholder="checkout-zip"  placeholder="ZIP / Postal code" required>
+        </div>
+        <button type="submit" class="btn primary" data-i18n="checkout-submit">Place Order &rarr;</button>
+      </form>
+      <div class="checkout-success" id="checkout-success" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <h3 data-i18n="checkout-success-h3">Order Placed!</h3>
+        <p data-i18n="checkout-success-p">Thank you! You&apos;ll receive a confirmation email shortly.</p>
+        <button class="btn primary" id="checkout-done" data-i18n="checkout-done">Continue Shopping</button>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero-section">
+      <div class="hero container">
+        <div class="hero-content animate-left">
+          <h1 data-i18n="hero-h1">Shop smarter with us today.</h1>
+          <p class="hero-text" data-i18n="hero-text">Shopping with us today and buy our best quality products. and signup to have the best deal on our website.</p>
+          <div class="hero-actions">
+            <a class="btn secondary" href="#deals" data-i18n="hero-cta">View Deals</a>
+          </div>
+          <div class="stats">
+            <div><strong data-target="4.9" data-suffix="★" data-decimals="1">4.9★</strong><span data-i18n="stat-rating">Customer rating</span></div>
+            <div><strong data-target="24" data-suffix="/7">24/7</strong><span data-i18n="stat-ordering">Online ordering</span></div>
+            <div><strong data-target="100" data-suffix="%">100%</strong><span data-i18n="stat-checkout">Secure checkout</span></div>
+          </div>
+        </div>
+        <div class="hero-card animate-right">
+          <img src="https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=1100&q=80" alt="Premium shopping bags and products" loading="eager">
+          <div class="floating-card">
+            <span data-i18n="float-label">Today's Pick</span>
+            <strong data-i18n="float-discount">Up to 35% off</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="brand-strip">
+      <div class="strip-inner">
+        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 12 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><span data-i18n="brand-shipping">Fast shipping</span></span>
+        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span data-i18n="brand-payments">Secure payments</span></span>
+        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span data-i18n="brand-quality">Quality products</span></span>
+        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/></svg><span data-i18n="brand-returns">Easy returns</span></span>
+      </div>
+    </section>
+
+    <section class="section container" id="shop">
+      <div class="section-heading animate-up">
+        <p class="eyebrow" data-i18n="shop-eyebrow">Featured collection</p>
+        <h2 data-i18n="shop-h2">Products your customers will notice.</h2>
+        <p data-i18n="shop-p">Replace these sample products with your real inventory anytime.</p>
+      </div>
+
+      <div class="product-grid" id="product-grid">
+        <!-- Products rendered dynamically by script.js -->
+      </div>
+    </section>
+
+    <section class="deal-section" id="deals">
+      <div class="container deal-card animate-up">
+        <div>
+          <p class="eyebrow" data-i18n="deal-eyebrow">Limited offer</p>
+          <h2 data-i18n="deal-h2">Make your first order feel special.</h2>
+          <p data-i18n="deal-p">Use this section for discounts, bundles, or seasonal promotions that push customers to buy today.</p>
+        </div>
+        <a class="btn primary" href="#shop" data-i18n="deal-cta">Shop the Deal</a>
+      </div>
+    </section>
+
+    <section class="section container" id="why-us">
+      <div class="features-grid">
+        <div class="feature-card animate-up" style="--delay: 0s">
+          <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+          <h3 data-i18n="feat1-h3">Fast Loading</h3>
+          <p data-i18n="feat1-p">Lightweight design with optimized image loading and clean code.</p>
+        </div>
+        <div class="feature-card animate-up" style="--delay: 0.13s">
+          <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></span>
+          <h3 data-i18n="feat2-h3">Built for Trust</h3>
+          <p data-i18n="feat2-p">Professional layout that helps customers feel safe buying from you.</p>
+        </div>
+        <div class="feature-card animate-up" style="--delay: 0.26s">
+          <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span>
+          <h3 data-i18n="feat3-h3">Mobile First</h3>
+          <p data-i18n="feat3-p">Looks sharp on iPhone, Android, tablets, and desktop screens.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter container animate-up" id="contact">
+      <div>
+        <p class="eyebrow" data-i18n="news-eyebrow">Stay connected</p>
+        <h2 data-i18n="news-h2">Get updates, deals, and new arrivals.</h2>
+      </div>
+      <form id="newsletter-form">
+        <input type="email" id="newsletter-email" data-i18n-placeholder="news-email" placeholder="Enter your email" aria-label="Email address" required>
+        <button type="submit" data-i18n="news-btn">Subscribe</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="logo footer-logo"><span>Blinders </span>Power Group</a>
+        <p class="footer-tagline" data-i18n="footer-tagline">Premium products, trusted service.</p>
+        <p class="footer-copy" data-i18n="footer-copy">© 2026 BlindersPower LLC. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#" data-i18n="footer-privacy">Privacy</a>
+          <a href="#" data-i18n="footer-terms">Terms</a>
+          <a href="#" data-i18n="footer-support">Support</a>
+        </div>
+      </div>
+
+      <div class="footer-contacts">
+        <h4 class="footer-contacts-title" data-i18n="footer-contact-title">Contact Us</h4>
+
+        <a class="footer-contact-item" href="tel:+17861231234">
+          <span class="footer-contact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.63 1.1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </span>
+          <span>(786) 123-1234</span>
+        </a>
+
+        <a class="footer-contact-item" href="mailto:Sales@blinderspowergroup.com">
+          <span class="footer-contact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </span>
+          <span>Sales@blinderspowergroup.com</span>
+        </a>
+
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <span data-i18n="footer-address">123 Main Street, Miami, FL 33101</span>
+        </div>
+
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </span>
+          <span data-i18n="footer-hours">Mon – Fri: 9 AM – 6 PM EST</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
